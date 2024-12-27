@@ -37,9 +37,9 @@
                     <yandex-map-zoom-control/>
                 </yandex-map-controls>
 
+                <!-- todo: v-model="clusterer" -->
                 <yandex-map-clusterer
                     v-if="getPointList.length > 0"
-                    v-model="clusterer"
                     :grid-size="2 ** gridSize"
                     zoom-on-cluster-click
                     :settings="{

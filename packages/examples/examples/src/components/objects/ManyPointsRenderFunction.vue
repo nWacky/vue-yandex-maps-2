@@ -185,6 +185,8 @@ const getPointList = computed(() => {
 const allMarkers: Map<string, YMapMarker> = new Map();
 const selectedMarkerId = ref<string | null>(null);
 
+console.log('allMarkers', allMarkers)
+
 const updateMarker = (feature: ClustererFeature) => {
     console.log('updateMarker', feature.id)
     const marker = allMarkers.get(feature.id);
@@ -203,14 +205,18 @@ const updateMarker = (feature: ClustererFeature) => {
 const cssModule = useCssModule();
 const createMarker = (feature: ClustererFeature) => {
 
-    console.log('createMarker', feature.id)
+    console.log('createMarker', feature.id, `(current: ${selectedMarkerId.value})`)
 
     const featureCircle = document.createElement('div');
+    
     featureCircle.classList.add(cssModule['feature-circle']);
     featureCircle.innerHTML = `<span>#${ feature.id }</span>`;
 
+    featureCircle.id = feature.id;
+
     if (feature.id == selectedMarkerId.value) {
         featureCircle.style.background = '#AC0707';
+        featureCircle.id = `${feature.id}-s`;
     }
 
     const yMapMarker = new ymaps3.YMapMarker(
@@ -236,6 +242,9 @@ const createMarker = (feature: ClustererFeature) => {
         featureCircle,
     );
 
+    if (allMarkers.get(feature.id)) {
+        allMarkers.delete(feature.id)
+    }
     allMarkers.set(feature.id, yMapMarker);
 
     return yMapMarker;

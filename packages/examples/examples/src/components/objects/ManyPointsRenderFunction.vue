@@ -31,46 +31,14 @@
             >
                 <yandex-map-default-scheme-layer/>
                 <yandex-map-default-features-layer/>
-                <yandex-map-controls :settings="{ position: 'top left' }">
-                    <yandex-map-control>
-                        <label class="padded">
-                            Elements count: {{ count }}
-                            <input
-                                v-model="count"
-                                max="30000"
-                                min="500"
-                                step="500"
-                                type="range"
-                            >
-                        </label>
-                        <label class="padded">
-                            Grid Size: {{ 2 ** gridSize }}
-                            <!-- @vue-ignore -->
-                            <input
-                                max="11"
-                                min="6"
-                                type="range"
-                                :value="gridSize"
-                                @input="gridSize = $event.target.value"
-                            >
-                        </label>
-                    </yandex-map-control>
-                </yandex-map-controls>
-                <yandex-map-controls :settings="{ position: 'bottom left', orientation: 'vertical' }">
-                    <yandex-map-control-button>
-                        Zoom: {{ zoom }}
-                    </yandex-map-control-button>
-                    <yandex-map-control-button>
-                        Bounds: <span class="bounds">{{ JSON.stringify(bounds) }}</span>
-                    </yandex-map-control-button>
-                    <yandex-map-control-button>
-                        True bounds: <span class="bounds">{{ JSON.stringify(trueBounds) }}</span>
-                    </yandex-map-control-button>
-                </yandex-map-controls>
+                
+                
                 <yandex-map-controls :settings="{ position: 'right' }">
                     <yandex-map-zoom-control/>
                 </yandex-map-controls>
+
                 <yandex-map-clusterer
+                    v-if="getPointList.length > 0"
                     v-model="clusterer"
                     :grid-size="2 ** gridSize"
                     zoom-on-cluster-click
@@ -160,7 +128,7 @@ function getRandomPoint(): LngLat {
     ];
 }
 
-const getPointList = computed(() => {
+const getPointListList = computed(() => {
     if (!map.value) return [];
 
     const result: ClustererFeature[] = [];
@@ -181,6 +149,23 @@ const getPointList = computed(() => {
 
     return result;
 });
+
+
+const hasPoints = ref(false);
+
+onMounted(() => {
+    setTimeout(() => {
+        hasPoints.value = true;
+    }, 5_000)
+})
+
+const getPointList = computed(() => {
+    if (!hasPoints.value) {
+        return [];
+    }
+
+    return getPointListList.value;
+})
 
 
 const allMarkers: Map<string, YMapMarker> = new Map()

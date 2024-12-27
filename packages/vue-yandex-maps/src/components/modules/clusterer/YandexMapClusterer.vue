@@ -209,6 +209,7 @@ export default defineComponent({
         };
 
         const update = async () => {
+            console.log('update');
             clusterFeatures.value = [];
             await nextTick();
             mapChildren.value?.update(getSettings());
@@ -222,6 +223,7 @@ export default defineComponent({
         });
 
         const init = async () => {
+            console.log('init');
             mapChildren.value = await setupMapChildren({
                 createFunction: ({
                     YMapClusterer: Clusterer,

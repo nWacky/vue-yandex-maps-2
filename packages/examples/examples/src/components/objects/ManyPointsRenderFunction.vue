@@ -186,6 +186,7 @@ const allMarkers: Map<string, YMapMarker> = new Map();
 const selectedMarkerId = ref<string | null>(null);
 
 const updateMarker = (feature: ClustererFeature) => {
+    console.log('updateMarker', feature.id)
     const marker = allMarkers.get(feature.id);
 
     if (marker) {
@@ -201,6 +202,9 @@ const updateMarker = (feature: ClustererFeature) => {
 
 const cssModule = useCssModule();
 const createMarker = (feature: ClustererFeature) => {
+
+    console.log('createMarker', feature.id)
+
     const featureCircle = document.createElement('div');
     featureCircle.classList.add(cssModule['feature-circle']);
     featureCircle.innerHTML = `<span>#${ feature.id }</span>`;

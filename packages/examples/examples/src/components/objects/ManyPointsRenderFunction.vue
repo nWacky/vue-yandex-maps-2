@@ -192,20 +192,22 @@ const updateMarker = (feature: ClustererFeature) => {
     const marker = allMarkers.get(feature.id);
 
     if (marker) {
-        map.value?.removeChild(marker);
-        marker.element.remove();
+        console.log('marker', marker);
 
-        allMarkers.delete(feature.id);
+        const bg = selectedMarkerId.value == feature.id ? '#AC0707' : "";
+
+        marker.element.style.background = bg;
+        marker.update({});
     }
 
-    const newMarker = createMarker(feature);
-    map.value?.addChild(newMarker);
+    // const newMarker = createMarker(feature);
+    // map.value?.addChild(newMarker);
 };
 
 const cssModule = useCssModule();
 const createMarker = (feature: ClustererFeature) => {
 
-    console.log('createMarker', feature.id, `(current: ${selectedMarkerId.value})`)
+    console.log('createMarker', feature.id)
 
     const featureCircle = document.createElement('div');
     

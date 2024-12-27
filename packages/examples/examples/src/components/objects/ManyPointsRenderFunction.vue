@@ -150,15 +150,6 @@ const getPointListList = computed(() => {
 });
 
 
-const getPointList = computed(() => {
-    if (!hasPoints.value) {
-        return [];
-    }
-
-    return getPointListList.value;
-})
-
-
 const allMarkers: Map<string, YMapMarker> = new Map();
 
 const hasPoints = ref(false);
@@ -178,7 +169,6 @@ const getPointList = computed(() => {
 })
 
 
-const allMarkers: Map<string, YMapMarker> = new Map();
 const selectedMarkerId = ref<string | null>(null);
 
 const updateMarker = (feature: ClustererFeature) => {

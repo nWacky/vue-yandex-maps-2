@@ -199,9 +199,6 @@ const updateMarker = (feature: ClustererFeature) => {
         marker.element.style.background = bg;
         marker.update({});
     }
-
-    // const newMarker = createMarker(feature);
-    // map.value?.addChild(newMarker);
 };
 
 const cssModule = useCssModule();
@@ -244,9 +241,6 @@ const createMarker = (feature: ClustererFeature) => {
         featureCircle,
     );
 
-    if (allMarkers.get(feature.id)) {
-        allMarkers.delete(feature.id)
-    }
     allMarkers.set(feature.id, yMapMarker);
 
     return yMapMarker;
